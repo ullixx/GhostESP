@@ -1,0 +1,51 @@
+name: Build Bruce for HW6728 N16R8
+
+on:
+  push:
+    branches:
+      - hw6728-bruce-firmware
+    paths:
+      - "bruce/hw6728/**"
+      - "scripts/prepare_bruce_hw6728.py"
+      - ".gitmodules"
+      - ".github/workflows/build-bruce-hw6728.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GhostESP and Bruce submodule
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PlatformIO
+        run: |
+          python -m pip install --upgrade pip
+          pip install platformio
+
+      - name: Apply HW6728 overlay
+        run: python scripts/prepare_bruce_hw6728.py
+
+      - name: Build Bruce
+        working-directory: third_party/bruce-firmware
+        run: pio run -e hw6728-n16r8
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bruce-HW6728-ESP32S3-N16R8
+          path: |
+            third_party/bruce-firmware/Bruce-*.bin
+            third_party/bruce-firmware/.pio/build/hw6728-n16r8/firmware.bin
+          if-no-files-found: warn
+          retention-days: 14
