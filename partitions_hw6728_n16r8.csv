@@ -1,6 +1,8 @@
 # HW6728 ESP32-S3 N16R8: 16MB flash, single factory app, no OTA.
-# Keep bootloader/table/NVS offsets conventional; app occupies remaining flash.
+# Reserve 2MB for persistent FAT storage with wear levelling.
+# The current application image is ~3.3MB; app0 retains ample growth room.
 # Name,     Type, SubType, Offset,  Size,    Flags
 nvs,        data, nvs,     0x9000,  0x7000,
-app0,       app,  factory, 0x10000, 0xFE0000,
+app0,       app,  factory, 0x10000, 0xDE0000,
+storage,    data, fat,     0xDF0000,0x200000,
 coredump,   data, coredump,0xFF0000,0x10000,
