@@ -353,6 +353,12 @@ if(idf_target STREQUAL "esp32s2")
     target_compile_definitions(${COMPONENT_LIB} PRIVATE CONFIG_IDF_TARGET_ESP32S2)
 endif()
 
+if(CONFIG_BUILD_CONFIG_TEMPLATE STREQUAL "hw6728_n16r8")
+    # HW6728 N16R8 has no SD socket; expose the internal FAT flash partition
+    # through the existing virtual-storage path at /mnt.
+    target_compile_definitions(${COMPONENT_LIB} PRIVATE CONFIG_IS_HW6728_N16R8=1)
+endif()
+
 if(idf_target STREQUAL "esp32p4")
     target_compile_options(${COMPONENT_LIB} PRIVATE
         -Wno-error=stringop-truncation
