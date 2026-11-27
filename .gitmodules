@@ -1,3 +1,6 @@
 [submodule "doomgeneric"]
 	path = plugins/examples/doom_port/doomgeneric
 	url = https://github.com/GhostESP-Revival/doomgeneric.git
+[submodule "bruce-firmware"]
+	path = third_party/bruce-firmware
+	url = https://github.com/BruceDevices/firmware.git
