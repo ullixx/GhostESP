@@ -18,6 +18,8 @@ board-specific pins only after verifying the HW6728 schematic/pinout.
 
 ## Build
 
+The board interface includes `globals.h` so the Bruce configuration object is declared during compilation.
+
 From the GhostESP repository root, with submodules initialized:
 
 ```sh
