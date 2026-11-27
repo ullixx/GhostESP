@@ -2,6 +2,7 @@
 #include <interface.h>
 #include <globals.h>
 
+// BruceConfig is declared by globals.h; keep hardware pins unset until verified.
 // GPIO assignments are intentionally left unset until the exact HW6728 pinout
 // is verified. This avoids accidentally driving flash/PSRAM or antenna-related pins.
 void _setup_gpio() {
